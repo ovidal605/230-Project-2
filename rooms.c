@@ -61,6 +61,7 @@ void room_exit_down(struct Room *current, struct Room *other)
   current->down = other;
 }
 
+/*
 char *room_description(struct Room *room)
 {
   return room->description;
@@ -70,3 +71,4 @@ struct Item *room_items(struct Room *room)
 {
   return room->items;
 }
+*/
