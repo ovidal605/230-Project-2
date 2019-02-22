@@ -34,33 +34,7 @@ struct Room
 };
 int main(int argc, char *argv[])
 {
-  // Problem 1
-  struct Item *head = item("-1", "-1",
-                           item("Item 1", "Description 1",
-                                item("Item 2", "Description 2", NULL)));
-  item_print(head->next);
-  printf("After deletion of Item 1\n");
-  item_take(head, "Item 1");
-  item_print(head->next);
-  printf("After deletion of Item 2\n");
-  item_take(head, "Item 2");
-  item_print(head->next);
-  // Problem 2
-  struct Item *room1Items = item("-1", "-1",
-                                 item("My Room1 Item 1", "Description 1",
-                                      item("My Room1 Item 2", "Description 2", NULL)));
-
-  struct Item *room2Items = item("-1", "-1",
-                                 item("My Room2 Item 1", "Description 1",
-                                      item("My Room2 Item 2", "Description 2", NULL)));
-  struct Room *room1 = room("My room 1", room1Items, NULL, NULL, NULL, NULL, NULL, NULL);
-  struct Room *north = room("My North Room", room2Items, NULL, NULL, NULL, NULL, NULL, NULL);
-  room_exit_north(room1, north);
-  room_exit_south(north, room1);
-
-  printf("\n\n%s\n", room1->north->description);
-  printf("%s", north->south->description);
-  return 0;
+ 
 }
 struct Item *item(char *name, char *desc, struct Item *next)
 {
