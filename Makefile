@@ -1,5 +1,5 @@
-SRC = adventure.c items.c rooms.c
-OBJ = adventure.o items.o rooms.o
+SRC = adventure.c items.c rooms.c avatar.c
+OBJ = adventure.o items.o rooms.o avatar.o
 PROG = a.out
 
 $(PROG): $(OBJ)
