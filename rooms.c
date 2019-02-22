@@ -31,32 +31,32 @@ void free_room(struct Room *room)
   free(room);
 }
 
-void room_exit_north(struct Room *current, struct Room *other)
+void set_room_exit_north(struct Room *current, struct Room *other)
 {
   current->north = other;
 }
 
-void room_exit_south(struct Room *current, struct Room *other)
+void set_room_exit_south(struct Room *current, struct Room *other)
 {
   current->south = other;
 }
 
-void room_exit_east(struct Room *current, struct Room *other)
+void set_room_exit_east(struct Room *current, struct Room *other)
 {
   current->east = other;
 }
 
-void room_exit_west(struct Room *current, struct Room *other)
+void set_room_exit_west(struct Room *current, struct Room *other)
 {
   current->west = other;
 }
 
-void room_exit_up(struct Room *current, struct Room *other)
+void set_room_exit_up(struct Room *current, struct Room *other)
 {
   current->up = other;
 }
 
-void room_exit_down(struct Room *current, struct Room *other)
+void set_room_exit_down(struct Room *current, struct Room *other)
 {
   current->down = other;
 }

@@ -25,14 +25,16 @@ struct Room *room(char *description, struct Item *items,
 
 void free_room(struct Room *room);
 
-void room_exit_north(struct Room *current, struct Room *other);
-void room_exit_south(struct Room *current, struct Room *other);
-void room_exit_east(struct Room *current, struct Room *other);
-void room_exit_west(struct Room *current, struct Room *other);
-void room_exit_up(struct Room *current, struct Room *other);
-void room_exit_down(struct Room *current, struct Room *other);
+void set_room_exit_north(struct Room *current, struct Room *other);
+void set_room_exit_south(struct Room *current, struct Room *other);
+void set_room_exit_east(struct Room *current, struct Room *other);
+void set_room_exit_west(struct Room *current, struct Room *other);
+void set_room_exit_up(struct Room *current, struct Room *other);
+void set_room_exit_down(struct Room *current, struct Room *other);
 
+/*
 char *room_description(struct Room *room);
 struct Item *room_items(struct Room *room);
+*/
 
 #endif
