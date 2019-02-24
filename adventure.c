@@ -33,9 +33,6 @@ struct Room *build_level()
 
 void play(void)
 {
- 
-   printf("asdiawidinaijd");
-
   struct Room *startingRoom = build_level();
   struct Avatar *myAvatar = avatar(startingRoom, NULL);
 
