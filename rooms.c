@@ -1,9 +1,6 @@
 #include "rooms.h"
 
-struct Room *room(char *description, struct Item *items,
-                  struct Room *north, struct Room *south,
-                  struct Room *east, struct Room *west,
-                  struct Room *up, struct Room *down)
+struct Room *room(char *description, struct Item *items)
 {
 
   // Allocate memory for a new room
@@ -16,13 +13,21 @@ struct Room *room(char *description, struct Item *items,
   // initialize variables
   newRoom->description = descCopy;
 
-  newRoom->items = items;
-  newRoom->north;
-  newRoom->east;
-  newRoom->up;
-  newRoom->south;
-  newRoom->west;
-  newRoom->down;
+  if (items == NULL)
+  {
+    newRoom->items = item("HEAD", "HEAD", NULL);
+  }
+  else
+  {
+    newRoom->items = items;
+  }
+
+  newRoom->north = NULL;
+  newRoom->east = NULL;
+  newRoom->up = NULL;
+  newRoom->south = NULL;
+  newRoom->west = NULL;
+  newRoom->down = NULL;
 }
 
 void free_room(struct Room *room)

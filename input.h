@@ -1,5 +1,5 @@
-#ifndef __MOD_2_H
-#define __MOD_2_H
+#ifndef __INPUT_H
+#define __INPUT_H
 
 #include <stdlib.h>
 #include <stdio.h>

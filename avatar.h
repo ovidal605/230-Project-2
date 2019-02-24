@@ -1,7 +1,8 @@
-#ifndef __MOD_1_H
-#define __MOD_1_H
+#ifndef __AVATAR_H
+#define __AVATAR_H
 
 #include <stdlib.h>
+#include "items.h"
 
 struct Avatar
 {

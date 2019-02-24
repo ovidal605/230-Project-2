@@ -1,4 +1,5 @@
 #include "items.h"
+
 struct Item *item(char *name, char *desc, struct Item *next)
 {
   //copy name and description
@@ -49,6 +50,7 @@ void item_print(struct Item *head)
   //do not print the head node
   if (head == NULL)
     return;
+
   //print the current node name and description
   printf("%s: %s\n", head->name, head->desc);
   //print the next node on the list

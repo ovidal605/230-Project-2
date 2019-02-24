@@ -2,7 +2,13 @@
 
 struct Action *get_action()
 {
-  char buffer[50];
+
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+  {
+  }
+
+  char buffer[50] = {'\0'};
   scanf("%[^\n]s ", buffer);
 
   char delim[] = " ";
@@ -37,13 +43,25 @@ struct Action *get_action()
     action->actionType = ERR;
   }
 
-  action->arg = arg;
+  if (arg != NULL)
+  {
+    action->arg = strdup(arg);
+  }
+  else
+  {
+    action->arg = NULL;
+  }
 
   return action;
 }
 
 void free_action(struct Action *action)
 {
+  if (action->arg != NULL)
+  {
+    free(action->arg);
+  }
+
   free(action);
 }
 

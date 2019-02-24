@@ -6,7 +6,15 @@ struct Avatar *avatar(struct Room *startingRoom, struct Item *startingItems)
   newAvatar = (struct Avatar *)malloc(sizeof(struct Avatar));
 
   set_avatar_current_room(newAvatar, startingRoom);
-  set_avatar_items(newAvatar, startingItems);
+
+  if (startingItems == NULL)
+  {
+    set_avatar_items(newAvatar, item("HEAD", "HEAD", NULL));
+  }
+  else
+  {
+    set_avatar_items(newAvatar, startingItems);
+  }
 
   return newAvatar;
 }

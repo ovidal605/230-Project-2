@@ -1,5 +1,5 @@
-#ifndef __MOD_1_H
-#define __MOD_1_H
+#ifndef __ROOMS_H
+#define __ROOMS_H
 
 #include "items.h"
 #include <stdlib.h>
@@ -18,10 +18,7 @@ struct Room
 };
 
 // Creates a new Room structure
-struct Room *room(char *description, struct Item *items,
-                  struct Room *north, struct Room *south,
-                  struct Room *east, struct Room *west,
-                  struct Room *up, struct Room *down);
+struct Room *room(char *description, struct Item *items);
 
 void free_room(struct Room *room);
 
