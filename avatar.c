@@ -9,7 +9,7 @@ struct Avatar *avatar(struct Room *startingRoom, struct Item *startingItems)
 
   if (startingItems == NULL)
   {
-    set_avatar_items(newAvatar, item("HEAD", "HEAD", NULL));
+    set_avatar_items(newAvatar, item("HEAD", "HEAD", "HEAD", NULL));
   }
   else
   {

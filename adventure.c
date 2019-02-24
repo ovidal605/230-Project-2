@@ -11,7 +11,6 @@ void print_help();
 
 int main(void)
 {
-
   play();
 
   return 0;
@@ -19,11 +18,12 @@ int main(void)
 
 struct Room *build_level()
 {
-
   struct Room *startingRoom = room("You are in a dark, delapidated jail cell. To the north, a rusted jail cell door creeks open.", NULL);
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell.", NULL);
+  struct Room *room1 = room("You are in a dark room. There is nothin gin sight.", NULL);
 
-  item_add(startingRoom->items, item("tooth", "A tooth", NULL));
+  item_add(startingRoom->items, item("tooth", "A tooth", "This item has no use", NULL));
+  item_add(hallway->items, item("torch", "A torch", "You lit up the room", NULL));
 
   set_room_exit_north(startingRoom, hallway);
   set_room_exit_south(hallway, startingRoom);
@@ -33,10 +33,13 @@ struct Room *build_level()
 
 void play(void)
 {
+ 
+   printf("asdiawidinaijd");
 
   struct Room *startingRoom = build_level();
   struct Avatar *myAvatar = avatar(startingRoom, NULL);
 
+  
   printf("MY ADVENTURE\n----------------------\n\n");
   printf("You awake in a strange room. \n%s\n", startingRoom->description);
   printf("\nType help at any time for controls.\n");
@@ -89,7 +92,7 @@ void play(void)
 
       break;
     case USE_ITEM:
-      /* code */
+      item_use(myAvatar->items, action->arg);
       break;
     case HELP:
       print_help();

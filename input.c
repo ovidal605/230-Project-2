@@ -55,7 +55,7 @@ struct Action *get_action()
     action->actionType = ERR;
   }
 
-  // Allcate space and copy the second user argument
+  // Allocate space and copy the second user argument
   if (arg != NULL)
   {
     action->arg = strdup(arg);

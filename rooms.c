@@ -15,7 +15,7 @@ struct Room *room(char *description, struct Item *items)
 
   if (items == NULL)
   {
-    newRoom->items = item("HEAD", "HEAD", NULL);
+    newRoom->items = item("HEAD", "HEAD","HEAD", NULL);
   }
   else
   {
