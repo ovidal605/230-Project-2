@@ -20,7 +20,19 @@ struct Room *build_level()
 {
   struct Room *startingRoom = room("You are in a dark, delapidated jail cell. To the north, a rusted jail cell door creeks open.", NULL);
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell.", NULL);
-  struct Room *room1 = room("You are in a dark room. There is nothin gin sight.", NULL);
+  struct Room *room1 = room("You are in a dark room. There is nothin in sight.", NULL);
+  struct Room *hallway1 = room("You are in a hallway.", NULL);
+  struct Room *room2 = room("You are in a dark room. There is nothin in sight.", NULL);
+  struct Room *hallway2 = room("You are in a hallway.", NULL);
+  struct Room *room3 = room("You are in a dark room. There is nothin in sight.", NULL);
+  struct Room *hallway3 = room("You are in a hallway.", NULL);
+  struct Room *room4 = room("You are in a dark room. There is nothin in sight.", NULL);
+  struct Room *hallway4 = room("You are in a hallway.", NULL);
+  struct Room *room5 = room("You are in a dark room. There is nothin in sight.", NULL);
+  struct Room *hallway5 = room("You are in a hallway.", NULL);
+  struct Room *room6 = room("You are in a dark room. There is nothin in sight.", NULL);
+  struct Room *hallway6 = room("You are in a hallway.", NULL);
+  struct Room *exit = room("You are in a dark room. There is nothin in sight.", NULL);
 
   item_add(startingRoom->items, item("tooth", "A tooth", "This item has no use", NULL));
   item_add(hallway->items, item("torch", "A torch", "You lit up the room", NULL));
