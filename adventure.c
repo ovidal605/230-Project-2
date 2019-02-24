@@ -22,6 +22,8 @@ struct Room *build_level()
   struct Room *startingRoom = room("You are in a dark, delapidated jail cell. To the north, a rusted jail cell door creeks open.", NULL);
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell.", NULL);
 
+  item_add(startingRoom->items, item("tooth", "A tooth", NULL));
+
   set_room_exit_north(startingRoom, hallway);
   set_room_exit_south(hallway, startingRoom);
 
@@ -38,6 +40,8 @@ void play(void)
   while (action->actionType != ERR)
   {
 
+    struct Item *item;
+
     switch (action->actionType)
     {
     case GO:
@@ -51,9 +55,23 @@ void play(void)
       break;
     case TAKE_ITEM:
 
+      item = item_take(myAvatar->currentRoom->items, action->arg);
+
+      if (item != NULL)
+      {
+        item_add(myAvatar->items, item);
+      }
+
       break;
     case DROP_ITEM:
-      /* code */
+
+      item = item_take(myAvatar->items, action->arg);
+
+      if (item != NULL)
+      {
+        item_add(myAvatar->currentRoom->items, item);
+      }
+
       break;
     case USE_ITEM:
       /* code */

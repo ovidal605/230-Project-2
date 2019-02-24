@@ -70,13 +70,15 @@ struct Item *item_take(struct Item *item, char *itemName)
     if (strcmp(item_name(next), itemName) == 0)
     {
       item->next = item_next(next);
-      return item;
+      return next;
     }
 
     // progress the current and next item by one index
     item = item_next(item);
     next = item_next(next);
   }
+
+  return NULL;
 }
 
 void item_add(struct Item *inventory, struct Item *item)
