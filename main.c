@@ -32,10 +32,7 @@ struct Room
   struct Room *up;
   struct Room *down;
 };
-int main(int argc, char *argv[])
-{
- 
-}
+
 struct Item *item(char *name, char *desc, struct Item *next)
 {
   //copy name and description
