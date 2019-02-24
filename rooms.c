@@ -101,14 +101,12 @@ _Bool room_is_door_locked(struct Room *current, enum dir direction)
   return current->locks[direction] != NULL;
 }
 
-/*
-char *room_description(struct Room *room)
+char *get_room_description(struct Room *room)
 {
   return room->description;
 }
 
-struct Item *room_items(struct Room *room)
+struct Item *get_room_items(struct Room *room)
 {
   return room->items;
 }
-*/

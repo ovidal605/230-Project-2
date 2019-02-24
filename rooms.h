@@ -42,4 +42,7 @@ void room_lock_door(struct Room *current, enum dir direction, struct Item *item)
 _Bool room_use_item(struct Room *current, struct Item *item);
 _Bool room_is_door_locked(struct Room *current, enum dir direction);
 
+char *get_room_description(struct Room *room);
+struct Item *get_room_items(struct Room *room);
+
 #endif

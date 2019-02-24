@@ -54,6 +54,7 @@ void play(void)
   {
 
     struct Item *item;
+    struct Room *currentRoom = get_avatar_current_room(myAvatar);
 
     switch (action->actionType)
     {
@@ -61,19 +62,19 @@ void play(void)
       traverse(myAvatar, action->arg);
       break;
     case LOOK:
-      printf("\n%s\n", myAvatar->currentRoom->description);
+      printf("\n%s\n", get_room_description(currentRoom));
       printf("\nThe room contains:\n");
-      item_print(myAvatar->currentRoom->items->next);
+      item_print(get_room_items(currentRoom)->next);
       printf("\nIn your hands are:\n");
-      item_print(myAvatar->items->next);
+      item_print(get_avatar_items(myAvatar)->next);
       break;
     case TAKE_ITEM:
 
-      item = item_take(myAvatar->currentRoom->items, action->arg);
+      item = item_take(get_room_items(currentRoom), action->arg);
 
       if (item != NULL)
       {
-        item_add(myAvatar->items, item);
+        item_add(get_avatar_items(myAvatar), item);
         printf("\nYou pick up the %s.\n", item_name(item));
       }
       else
@@ -84,11 +85,11 @@ void play(void)
       break;
     case DROP_ITEM:
 
-      item = item_take(myAvatar->items, action->arg);
+      item = item_take(get_room_items(currentRoom), action->arg);
 
       if (item != NULL)
       {
-        item_add(myAvatar->currentRoom->items, item);
+        item_add(get_room_items(currentRoom), item);
         printf("\nYou drop the %s.\n", item_name(item));
       }
       else
@@ -98,18 +99,18 @@ void play(void)
 
       break;
     case USE_ITEM:
-      item = item_take(myAvatar->items, action->arg);
+      item = item_take(get_avatar_items(myAvatar), action->arg);
 
       if (item != NULL)
       {
-        if (room_use_item(myAvatar->currentRoom, item))
+        if (room_use_item(currentRoom, item))
         {
           printf("\nYou use the %s to open the door\n", item_name(item));
         }
         else
         {
           printf("\n%s did nothing\n", item_name(item));
-          item_add(myAvatar->items, item);
+          item_add(get_avatar_items(myAvatar), item);
         }
       }
       else
@@ -129,37 +130,38 @@ void play(void)
 
 void traverse(struct Avatar *myAvatar, char *arg)
 {
+  struct Room *currentRoom = get_avatar_current_room(myAvatar);
   struct Room *nextRoom = NULL;
   enum dir direction;
 
   if (strcmp("north", arg) == 0)
   {
-    nextRoom = get_room_exit(myAvatar->currentRoom, NORTH);
+    nextRoom = get_room_exit(currentRoom, NORTH);
     direction = NORTH;
   }
   else if (strcmp("south", arg) == 0)
   {
-    nextRoom = get_room_exit(myAvatar->currentRoom, SOUTH);
+    nextRoom = get_room_exit(currentRoom, SOUTH);
     direction = SOUTH;
   }
   else if (strcmp("east", arg) == 0)
   {
-    nextRoom = get_room_exit(myAvatar->currentRoom, EAST);
+    nextRoom = get_room_exit(currentRoom, EAST);
     direction = EAST;
   }
   else if (strcmp("west", arg) == 0)
   {
-    nextRoom = get_room_exit(myAvatar->currentRoom, WEST);
+    nextRoom = get_room_exit(currentRoom, WEST);
     direction = WEST;
   }
   else if (strcmp("up", arg) == 0)
   {
-    nextRoom = get_room_exit(myAvatar->currentRoom, UP);
+    nextRoom = get_room_exit(currentRoom, UP);
     direction = UP;
   }
   else if (strcmp("down", arg) == 0)
   {
-    nextRoom = get_room_exit(myAvatar->currentRoom, DOWN);
+    nextRoom = get_room_exit(currentRoom, DOWN);
     direction = DOWN;
   }
 
@@ -167,14 +169,14 @@ void traverse(struct Avatar *myAvatar, char *arg)
   {
     printf("\nNo room in that direction.\n");
   }
-  else if (room_is_door_locked(myAvatar->currentRoom, direction))
+  else if (room_is_door_locked(currentRoom, direction))
   {
     printf("\nThat door is locked.\n");
   }
   else
   {
     myAvatar->currentRoom = nextRoom;
-    printf("\nYou walk in to the next room. \n%s\n", nextRoom->description);
+    printf("\nYou walk in to the next room. \n%s\n", get_room_description(nextRoom));
   }
 }
 

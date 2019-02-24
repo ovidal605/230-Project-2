@@ -33,3 +33,13 @@ void set_avatar_items(struct Avatar *avatar, struct Item *items)
 {
   avatar->items = items;
 }
+
+struct Room *get_avatar_current_room(struct Avatar *avatar)
+{
+  return avatar->currentRoom;
+}
+
+struct Item *get_avatar_items(struct Avatar *avatar)
+{
+  return avatar->items;
+}
