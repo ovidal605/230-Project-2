@@ -78,3 +78,10 @@ struct Item *item_take(struct Item *item, char *itemName)
     next = item_next(next);
   }
 }
+
+void item_add(struct Item *inventory, struct Item *item)
+{
+  struct Item *temp = inventory->next;
+  inventory->next = item;
+  item->next = temp;
+}

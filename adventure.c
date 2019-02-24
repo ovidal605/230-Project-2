@@ -50,7 +50,7 @@ void play(void)
       item_print(myAvatar->items->next);
       break;
     case TAKE_ITEM:
-      /* code */
+
       break;
     case DROP_ITEM:
       /* code */
@@ -67,4 +67,5 @@ void play(void)
 
 void traverse(struct Avatar *myAvatar, char *arg)
 {
+  /* code */
 }
