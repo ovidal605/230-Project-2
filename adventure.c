@@ -7,6 +7,7 @@
 
 void play(void);
 void traverse(struct Avatar *avater, char *arg);
+void print_help();
 
 int main(void)
 {
@@ -36,8 +37,13 @@ void play(void)
   struct Room *startingRoom = build_level();
   struct Avatar *myAvatar = avatar(startingRoom, NULL);
 
+  printf("MY ADVENTURE\n----------------------\n\n");
+  printf("You awake in a strange room. \n%s\n", startingRoom->description);
+  printf("\nType help at any time for controls.\n");
+  printf("\nPress any key to start.\n");
   struct Action *action = get_action();
-  while (action->actionType != ERR)
+
+  while (action->actionType != QUIT)
   {
 
     struct Item *item;
@@ -48,9 +54,10 @@ void play(void)
       traverse(myAvatar, action->arg);
       break;
     case LOOK:
-      printf("%s", "The room contains:\n");
+      printf("\n%s\n", myAvatar->currentRoom->description);
+      printf("\nThe room contains:\n");
       item_print(myAvatar->currentRoom->items->next);
-      printf("%s", "In your hands are:\n");
+      printf("\nIn your hands are:\n");
       item_print(myAvatar->items->next);
       break;
     case TAKE_ITEM:
@@ -60,6 +67,10 @@ void play(void)
       if (item != NULL)
       {
         item_add(myAvatar->items, item);
+      }
+      else
+      {
+        printf("That item is not on the floor.\n");
       }
 
       break;
@@ -71,10 +82,17 @@ void play(void)
       {
         item_add(myAvatar->currentRoom->items, item);
       }
+      else
+      {
+        printf("That item is not in your hands.\n");
+      }
 
       break;
     case USE_ITEM:
       /* code */
+      break;
+    case HELP:
+      print_help();
       break;
     }
 
@@ -85,5 +103,51 @@ void play(void)
 
 void traverse(struct Avatar *myAvatar, char *arg)
 {
-  /* code */
+  struct Room *nextRoom = NULL;
+
+  if (strcmp("north", arg) == 0)
+  {
+    nextRoom = myAvatar->currentRoom->north;
+  }
+  else if (strcmp("south", arg) == 0)
+  {
+    nextRoom = myAvatar->currentRoom->south;
+  }
+  else if (strcmp("east", arg) == 0)
+  {
+    nextRoom = myAvatar->currentRoom->east;
+  }
+  else if (strcmp("west", arg) == 0)
+  {
+    nextRoom = myAvatar->currentRoom->west;
+  }
+  else if (strcmp("up", arg) == 0)
+  {
+    nextRoom = myAvatar->currentRoom->up;
+  }
+  else if (strcmp("down", arg) == 0)
+  {
+    nextRoom = myAvatar->currentRoom->down;
+  }
+
+  if (nextRoom == NULL)
+  {
+    printf("\nNo room in that direction.\n");
+  }
+  else
+  {
+    myAvatar->currentRoom = nextRoom;
+    printf("\nYou walk in to the next room. \n%s", nextRoom->description);
+  }
+}
+
+void print_help()
+{
+  printf("\nHelp\n");
+  printf("quit: Exits the game.\n");
+  printf("go: Traverses your avatar to other rooms. Usage go {north, south, east, west, up, down}\n");
+  printf("look: Displays room description, items in room, and items in your inventory.\n");
+  printf("take: Takes an item from the room. Usage take ITEMNAME\n");
+  printf("drop: Drops an item from your inventory on the ground. Usage drop ITEMNAME \n");
+  printf("use: uses an item in your inventory to interact with the room. Usage use ITEMNAME\n");
 }

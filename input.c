@@ -11,6 +11,7 @@ struct Action *get_action()
 
   // Get user input
   char buffer[50] = {'\0'};
+  printf("\n> ");
   scanf("%[^\n]s ", buffer);
 
   // Seperate user input by ' ' as a delimeter
@@ -40,6 +41,14 @@ struct Action *get_action()
   else if (strcmp("use", actionstr) == 0)
   {
     action->actionType = USE_ITEM;
+  }
+  else if (strcmp("quit", actionstr) == 0)
+  {
+    action->actionType = QUIT;
+  }
+  else if (strcmp("help", actionstr) == 0)
+  {
+    action->actionType = HELP;
   }
   else
   {

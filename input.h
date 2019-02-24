@@ -10,6 +10,8 @@
 enum ActionType
 {
   ERR = -1,
+  QUIT,
+  HELP,
   GO,
   LOOK,
   TAKE_ITEM,
