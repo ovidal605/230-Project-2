@@ -11,6 +11,7 @@ void print_help();
 
 int main(void)
 {
+
   play();
 
   return 0;
@@ -18,6 +19,7 @@ int main(void)
 
 struct Room *build_level()
 {
+
   struct Room *startingRoom = room("You are in a dark, delapidated jail cell. To the north, a rusted jail cell door creeks open.", NULL);
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
   struct Room *vault = room("You are in a vault. To the south, is the hallway.", NULL);
@@ -41,7 +43,6 @@ void play(void)
   struct Room *startingRoom = build_level();
   struct Avatar *myAvatar = avatar(startingRoom, NULL);
 
-  
   printf("MY ADVENTURE\n----------------------\n\n");
   printf("You awake in a strange room. \n%s\n", startingRoom->description);
   printf("\nType help at any time for controls.\n");
