@@ -22,7 +22,14 @@ struct Room *build_level()
 
   struct Room *startingRoom = room("You are in a dark, delapidated jail cell. To the north, a rusted jail cell door creeks open.", NULL);
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
-  struct Room *vault = room("You are in a vault. To the south, is the hallway.", NULL);
+  struct Room *vault = room("You are in a vault. To the south, is the hallway.There are doors leading in all directions", NULL);
+  struct Room *room2 = room("You are in a dimly lit room. There are doors leading west, south, and east", NULL);
+  struct Room *room3 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
+  struct Room *room4 = room("You are in a dimly lit room. There are doors leading north and east.", NULL);
+  struct Room *room5 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
+  struct Room *room6 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
+  struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"\
+  "you are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
 
   struct Item *tooth = item("tooth", "A tooth", NULL);
 
