@@ -63,9 +63,9 @@ void play(void)
     case LOOK:
       printf("\n%s\n", get_room_description(currentRoom));
       printf("\nThe room contains:\n");
-      item_print(get_room_items(currentRoom)->next);
+      item_print((get_room_items(currentRoom))->next);
       printf("\nIn your hands are:\n");
-      item_print(get_avatar_items(myAvatar)->next);
+      item_print((get_avatar_items(myAvatar))->next);
       break;
     case TAKE_ITEM:
 
