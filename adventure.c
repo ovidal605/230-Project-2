@@ -28,7 +28,7 @@ struct Room *build_level()
   struct Room *room5 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
   struct Room *room6 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
   struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"\
-  "you are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
+  " You are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
 
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
   struct Room *hallway2 = room("You are in a hallway. To the west, is the vault. To the east, is a room with a foot-shaped lock.", NULL);
