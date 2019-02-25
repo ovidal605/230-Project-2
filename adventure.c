@@ -51,6 +51,7 @@ struct Room *build_level()
   item_add(room2->items, hand);
   item_add(room3->items, toe);
   item_add(room4->items, finger);
+  item_add(room5->items, ear);
   item_add(room6->items, eye);
 
   set_room_exit_north(startingRoom, hallway);
@@ -62,11 +63,46 @@ struct Room *build_level()
   set_room_exit_east(vault, hallway2);
   set_room_exit_west(hallway2, vault);
 
+  set_room_exit_west(vault, hallway6);
+  set_room_exit_east(hallway6, vault);
+
+  set_room_exit_north(vault, hallway7);
+  set_room_exit_south(hallway7, vault);
+
   set_room_exit_east(hallway2, room2);
-  set_room_exit_west(room2, hallway2);
+  set_room_exit_west(room2, hallway2);  
+  
+  set_room_exit_east(room2, hallway3);
+  set_room_exit_west(hallway3, room2);
+
+  set_room_exit_east(hallway3, room3);
+  set_room_exit_west(room3, hallway3);
+
+  set_room_exit_south(room2, hallway4);
+  set_room_exit_north(hallway4, room2);
+
+  set_room_exit_south(hallway4, room4);
+  set_room_exit_north(room4, hallway4);
+
+  set_room_exit_east(room4, hallway5);
+  set_room_exit_west(hallway5, room4);
+
+  set_room_exit_east(hallway5, room5);
+  set_room_exit_west(room5, hallway5);
+
+  set_room_exit_west(hallway6, room6);
+  set_room_exit_east(room6, hallway6);
+
+  set_room_exit_north(hallway7, room7);
+  set_room_exit_south(room7, hallway7);
 
   room_lock_door(hallway, NORTH, tooth);
   room_lock_door(hallway2, EAST, foot);
+  room_lock_door(hallway3, EAST, hand);
+  room_lock_door(hallway4, SOUTH, toe);
+  room_lock_door(hallway5, EAST, finger);
+  room_lock_door(hallway6, WEST, ear);
+  room_lock_door(hallway7, NORTH, eye);
 
   return startingRoom;
 }
