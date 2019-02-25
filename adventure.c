@@ -31,6 +31,16 @@ struct Room *build_level()
   struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"\
   "you are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
 
+  struct Room *hallway2 = room("You are in a hallway. To the west, is the vault. To the east, is a room with a foot-shaped lock.", NULL);
+  struct Room *hallway3 = room("You are in a hallway. To the west, is the room with a foot-shaped lock. To the east, is room with a hand-shaped lock.", NULL);
+  struct Room *hallway4 = room("You are in a hallway. To the north, is the room with a foot-shaped lock. To the south, is a room with a toe-shaped lock.", NULL);
+  struct Room *hallway5 = room("You are in a hallway. To the west, is the room with a toe-shaped lock. To the east, is a room with a finger-shaped lock.", NULL);
+  struct Room *hallway6 = room("You are in a hallway. To the west, is the room with an ear-shaped lock. To the east, is the vault.", NULL);
+  struct Room *hallway7 = room("You are in a hallway. To the north, is the room with an eye-shaped lock. To the south, is the vault", NULL);
+
+
+
+
   struct Item *tooth = item("tooth", "A tooth", NULL);
 
   item_add(startingRoom->items, tooth);
