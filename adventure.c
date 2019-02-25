@@ -38,10 +38,13 @@ struct Room *build_level()
   struct Room *hallway6 = room("You are in a hallway. To the west, is the room with an ear-shaped lock. To the east, is the vault.", NULL);
   struct Room *hallway7 = room("You are in a hallway. To the north, is the room with an eye-shaped lock. To the south, is the vault", NULL);
 
-
-
-
   struct Item *tooth = item("tooth", "A tooth", NULL);
+  struct Item *foot = item("foot", "A foot", NULL);
+  struct Item *hand = item("hand", "A hand", NULL);
+  struct Item *toe = item("toe", "A toe", NULL);
+  struct Item *finger = item("finger", "A finger", NULL);
+  struct Item *ear = item("ear", "An ear", NULL);
+  struct Item *eye = item("eye", "An eye", NULL);
 
   item_add(startingRoom->items, tooth);
 
