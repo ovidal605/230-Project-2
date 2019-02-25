@@ -21,7 +21,6 @@ struct Room *build_level()
 {
 
   struct Room *startingRoom = room("You are in a dark, delapidated jail cell. To the north, a rusted jail cell door creeks open.", NULL);
-  struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
   struct Room *vault = room("You are in a vault. To the south, is the hallway.There are doors leading in all directions", NULL);
   struct Room *room2 = room("You are in a dimly lit room. There are doors leading west, south, and east", NULL);
   struct Room *room3 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
@@ -31,6 +30,7 @@ struct Room *build_level()
   struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"\
   "you are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
 
+  struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
   struct Room *hallway2 = room("You are in a hallway. To the west, is the vault. To the east, is a room with a foot-shaped lock.", NULL);
   struct Room *hallway3 = room("You are in a hallway. To the west, is the room with a foot-shaped lock. To the east, is room with a hand-shaped lock.", NULL);
   struct Room *hallway4 = room("You are in a hallway. To the north, is the room with a foot-shaped lock. To the south, is a room with a toe-shaped lock.", NULL);
@@ -47,6 +47,11 @@ struct Room *build_level()
   struct Item *eye = item("eye", "An eye", NULL);
 
   item_add(startingRoom->items, tooth);
+  item_add(vault->items, foot);
+  item_add(room2->items, hand);
+  item_add(room3->items, toe);
+  item_add(room4->items, finger);
+  item_add(room6->items, eye);
 
   set_room_exit_north(startingRoom, hallway);
   set_room_exit_south(hallway, startingRoom);
