@@ -58,7 +58,15 @@ struct Room *build_level()
 
   set_room_exit_north(hallway, vault);
   set_room_exit_south(vault, hallway);
+  
+  set_room_exit_east(vault, hallway2);
+  set_room_exit_west(hallway2, vault);
+
+  set_room_exit_east(hallway2, room2);
+  set_room_exit_west(room2, hallway2);
+
   room_lock_door(hallway, NORTH, tooth);
+  room_lock_door(hallway2, EAST, foot);
 
   return startingRoom;
 }
