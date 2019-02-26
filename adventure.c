@@ -29,8 +29,8 @@ struct Room *build_level()
   struct Room *room4 = room("You are in a dimly lit room. There are doors leading north and east.", NULL);
   struct Room *room5 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
   struct Room *room6 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
-  struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"\
-  " You are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
+  struct Room *room7 = room("You are in a bright room. There are stairs leading upwards.", NULL);
+  struct Room *end = room("You take the stairs and upon exiting you. You are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
 
   //Creates the hallays to walk through the rooms
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
@@ -101,6 +101,9 @@ struct Room *build_level()
 
   set_room_exit_north(hallway7, room7);
   set_room_exit_south(room7, hallway7);
+
+  set_room_exit_up(room7, end);
+  set_room_exit_down(end, room7);
 
   //Sets the "key" that every room will need in order to be opened
   room_lock_door(hallway, NORTH, tooth);
