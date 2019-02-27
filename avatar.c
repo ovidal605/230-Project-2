@@ -1,6 +1,6 @@
 #include "avatar.h"
 
-//returns an Avatar struct
+//returns a pointer to an Avatar struct
 struct Avatar *avatar(struct Room *startingRoom, struct Item *startingItems)
 {
   //Create and allocate size of avatar struct
@@ -44,13 +44,13 @@ void set_avatar_items(struct Avatar *avatar, struct Item *items)
   avatar->items = items;
 }
 
-//Gets the avatar's current room 
+//Gets the pointer to the avatar's current room 
 struct Room *get_avatar_current_room(struct Avatar *avatar)
 {
   return avatar->currentRoom;
 }
 
-//Gets the avatars inventory
+//Gets the pointer to the avatar's inventory
 struct Item *get_avatar_items(struct Avatar *avatar)
 {
   return avatar->items;
