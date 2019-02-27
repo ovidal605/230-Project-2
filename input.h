@@ -7,6 +7,7 @@
 
 #define INPUT_CHAR '>'
 
+//Enum the action type
 enum ActionType
 {
   ERR = -1,
@@ -19,17 +20,19 @@ enum ActionType
   USE_ITEM
 };
 
+//Action struct
 struct Action
 {
   enum ActionType actionType;
   char *arg;
 };
 
-// Returns an action from user input
+//Prototypes
 struct Action *get_action();
-void free_action(struct Action *action);
 
 enum ActionType get_action_type(struct Action *action);
+
 char *get_action_arg(struct Action *action);
 
+void free_action(struct Action *action);
 #endif
