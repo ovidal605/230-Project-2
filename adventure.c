@@ -5,9 +5,13 @@
 #include "input.h"
 #include "avatar.h"
 
-//prtototypes
+//prototypes
 void play(void);
-void traverse(struct Avatar *avater, char *arg);
+void traverse(struct Avatar *avatar, char *arg);
+void look(struct Avatar *avatar);
+void take(struct Avatar *avatar, char *itemName);
+void drop(struct Avatar *avatar, char *itemName);
+void use(struct Avatar *avater, char *itemName);
 void print_help();
 
 int main(void)
@@ -29,8 +33,9 @@ struct Room *build_level()
   struct Room *room4 = room("You are in a dimly lit room. There are doors leading north and east.", NULL);
   struct Room *room5 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
   struct Room *room6 = room("You are in a dimly lit room. The only only exit is back the way you came from.", NULL);
-  struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"\
-  " You are struck by the sun's warm rays. You have finally escaped your prison.", NULL);
+  struct Room *room7 = room("You are in a bright room. There are stairs leading upwards. You take the stairs and upon exiting you"
+                            " You are struck by the sun's warm rays. You have finally escaped your prison.",
+                            NULL);
 
   //Creates the hallays to walk through the rooms
   struct Room *hallway = room("You are in a hallway. To the south, is the jail cell. To the north is a vault with a tooth-shaped lock.", NULL);
@@ -65,7 +70,7 @@ struct Room *build_level()
 
   set_room_exit_north(hallway, vault);
   set_room_exit_south(vault, hallway);
-  
+
   set_room_exit_east(vault, hallway2);
   set_room_exit_west(hallway2, vault);
 
@@ -76,8 +81,8 @@ struct Room *build_level()
   set_room_exit_south(hallway7, vault);
 
   set_room_exit_east(hallway2, room2);
-  set_room_exit_west(room2, hallway2);  
-  
+  set_room_exit_west(room2, hallway2);
+
   set_room_exit_east(room2, hallway3);
   set_room_exit_west(hallway3, room2);
 
@@ -145,95 +150,126 @@ void play(void)
     //Get the action of the player and followe the corresponding instructions
     switch (action->actionType)
     {
-      //If the action is "go"
-      case GO:
-        //The avatar is placed into the room in the given direction
-        traverse(myAvatar, action->arg);
-        break;
-      //If the action is "look"
-      case LOOK:
-        //Print the room description, the items that are on the floor, and the items in the player's inventory
-        printf("\n%s\n", get_room_description(currentRoom));
-        printf("\nThe room contains:\n");
-        item_print((get_room_items(currentRoom))->next);
-        printf("\nIn your hands are:\n");
-        item_print((get_avatar_items(myAvatar))->next);
-        break;
-      //If the action is "take"  
-      case TAKE_ITEM:
-        //Gets the item name entered from the room if it exists and removes it from the room
-        item = item_take(get_room_items(currentRoom), action->arg);
-        
-        //If the item exists in the room
-        if (item != NULL)
-        {
-          //Add the item into the players inventory and notify the player that the item has been added
-          item_add(get_avatar_items(myAvatar), item);
-          printf("\nYou pick up the %s.\n", item_name(item));
-        }
-        //Else notify the player that the item is not on the floor (doesn't exist)
-        else
-        {
-          printf("That item is not on the floor.\n");
-        }
-        break;
-      //If the action is "drop"
-      case DROP_ITEM:
-        //take the given item name from the player's inventory
-        item = item_take(get_avatar_items(myAvatar), action->arg);
-        //If the item is found
-        if (item != NULL)
-        {
-          //Place the item in the room and notify the player that the item has been dropped
-          item_add(get_room_items(currentRoom), item);
-          printf("\nYou drop the %s.\n", item_name(item));
-        }
-        //Else notify the player that the item was not found in the inventory
-        else
-        {
-          printf("That item is not in your hands.\n");
-        }
-        break;
-      //If the action is "use"
-      case USE_ITEM:
-        //Get and remove the item from the players inventory
-        item = item_take(get_avatar_items(myAvatar), action->arg);
-        //If the item is found 
-        if (item != NULL)
-        {
-          //If the item matches the doors lock notify the palyer that the door is unlocked
-          if (room_use_item(currentRoom, item))
-          {
-            printf("\nYou use the %s to open the door\n", item_name(item));
-          }
-          //Else notify the player that the key is incorrect and add the item back into the player's inventory
-          else
-          {
-            printf("\n%s did nothing\n", item_name(item));
-            item_add(get_avatar_items(myAvatar), item);
-          }
-        }
-        //Els if the item is not in the players inventory notify the player
-        else
-        {
-          printf("That item is not in your hands.\n");
-        }
-        break;
-      //If the action is "help"
-      case HELP:
-        //Print the help menu
-        print_help();
-        break;
+    //If the action is "go"
+    case GO:
+      //The avatar is placed into the room in the given direction
+      traverse(myAvatar, action->arg);
+      break;
+    //If the action is "look"
+    case LOOK:
+      look(myAvatar);
+      break;
+    //If the action is "take"
+    case TAKE_ITEM:
+      take(myAvatar, action->arg);
+      break;
+    //If the action is "drop"
+    case DROP_ITEM:
+      drop(myAvatar, action->arg);
+      break;
+    //If the action is "use"
+    case USE_ITEM:
+      use(myAvatar, action->arg);
+      break;
+    //If the action is "help"
+    case HELP:
+      //Print the help menu
+      print_help();
+      break;
     }
 
-    //Free the action 
+    //Frees memory of the action
     free_action(action);
     //Get a new action
     action = get_action();
   }
 }
 
-//Travers the through the map
+void look(struct Avatar *avatar)
+{
+  struct Room *currentRoom = get_avatar_current_room(avatar);
+
+  //Print the room description, the items that are on the floor, and the items in the player's inventory
+  printf("\n%s\n", get_room_description(currentRoom));
+  printf("\nThe room contains:\n");
+  item_print((get_room_items(currentRoom))->next);
+  printf("\nIn your hands are:\n");
+  item_print((get_avatar_items(avatar))->next);
+}
+
+void take(struct Avatar *avatar, char *itemName)
+{
+
+  struct Room *currentRoom = get_avatar_current_room(avatar);
+
+  //Gets the item name entered from the room if it exists and removes it from the room
+  struct Item *item = item_take(get_room_items(currentRoom), itemName);
+
+  //If the item exists in the room
+  if (item != NULL)
+  {
+    //Add the item into the players inventory and notify the player that the item has been added
+    item_add(get_avatar_items(avatar), item);
+    printf("\nYou pick up the %s.\n", item_name(item));
+  }
+  //Else notify the player that the item is not on the floor (doesn't exist)
+  else
+  {
+    printf("That item is not on the floor.\n");
+  }
+}
+
+void drop(struct Avatar *avatar, char *itemName)
+{
+
+  struct Room *currentRoom = get_avatar_current_room(avatar);
+
+  //take the given item name from the player's inventory
+  struct Item *item = item_take(get_avatar_items(avatar), itemName);
+  //If the item is found
+  if (item != NULL)
+  {
+    //Place the item in the room and notify the player that the item has been dropped
+    item_add(get_room_items(currentRoom), item);
+    printf("\nYou drop the %s.\n", item_name(item));
+  }
+  //Else notify the player that the item was not found in the inventory
+  else
+  {
+    printf("That item is not in your hands.\n");
+  }
+}
+
+void use(struct Avatar *avatar, char *itemName)
+{
+  struct Room *currentRoom = get_avatar_current_room(avatar);
+
+  //Get and remove the item from the players inventory
+  struct Item *item = item_take(get_avatar_items(avatar), itemName);
+
+  //If the item is found
+  if (item != NULL)
+  {
+    //If the item matches the doors lock notify the palyer that the door is unlocked
+    if (room_use_item(currentRoom, item))
+    {
+      printf("\nYou use the %s to open the door\n", item_name(item));
+    }
+    //Else notify the player that the key is incorrect and add the item back into the player's inventory
+    else
+    {
+      printf("\n%s did nothing\n", item_name(item));
+      item_add(get_avatar_items(avatar), item);
+    }
+  }
+  //Els if the item is not in the players inventory notify the player
+  else
+  {
+    printf("That item is not in your hands.\n");
+  }
+}
+
+// Traverse the through the map
 void traverse(struct Avatar *myAvatar, char *arg)
 {
   //Get the current room that the player is in
@@ -256,7 +292,7 @@ void traverse(struct Avatar *myAvatar, char *arg)
   //If the direction is "south"
   else if (strcmp("south", arg) == 0)
   {
-    //The next room is the room that is directly south 
+    //The next room is the room that is directly south
     nextRoom = get_room_exit(currentRoom, SOUTH);
     //Set the direction
     direction = SOUTH;
