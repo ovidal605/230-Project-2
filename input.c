@@ -1,6 +1,6 @@
 #include "input.h"
 
-//Returns an Action struct
+//Returns a pointer to an Action struct
 struct Action *get_action()
 {
 
@@ -89,7 +89,7 @@ enum ActionType get_action_type(struct Action *action)
   return action->actionType;
 }
 
-//Returns the players second argument
+//Returns a pointer to player's second argument
 char *get_action_arg(struct Action *action)
 {
   return action->arg;

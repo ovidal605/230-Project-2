@@ -76,7 +76,7 @@ void set_room_exit_down(struct Room *current, struct Room *other)
   current->rooms[DOWN] = other;
 }
 
-//Sets the correct exit of a room with in the correct direction
+//Sets the correct exit of a room in the correct direction
 void set_room_exit(struct Room *current, struct Room *other, enum dir direction)
 {
   current->rooms[direction] = other;
@@ -120,13 +120,13 @@ _Bool room_is_door_locked(struct Room *current, enum dir direction)
   return current->locks[direction] != NULL;
 }
 
-//Returns the description of the room
+//Returns a pointer of the description of the room
 char *get_room_description(struct Room *room)
 {
   return room->description;
 }
 
-//Returns the room items
+//Returns a pointer the room items
 struct Item *get_room_items(struct Room *room)
 {
   return room->items;
