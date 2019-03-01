@@ -29,6 +29,7 @@ struct Avatar *avatar(struct Room *startingRoom, struct Item *startingItems)
 //Frees the memory of an avatar struct
 void free_avatar(struct Avatar *avatar)
 {
+  item_free_inventory(get_avatar_items(avatar));
   free(avatar);
 }
 
@@ -44,7 +45,7 @@ void set_avatar_items(struct Avatar *avatar, struct Item *items)
   avatar->items = items;
 }
 
-//Gets the pointer to the avatar's current room 
+//Gets the pointer to the avatar's current room
 struct Room *get_avatar_current_room(struct Avatar *avatar)
 {
   return avatar->currentRoom;

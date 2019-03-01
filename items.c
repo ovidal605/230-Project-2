@@ -21,28 +21,33 @@ struct Item *item(char *name, char *desc, struct Item *next)
   return newItem;
 }
 
+void item_free(struct Item *item)
+{
+  free(item_name(item));
+  free(item_description(item));
+  free(item);
+}
+
+void item_free_inventory(struct Item *itemHead)
+{
+  if (itemHead != NULL)
+  {
+    struct Item *next = item_next(itemHead);
+    item_free_inventory(next);
+
+    item_free(itemHead);
+  }
+}
+
 //Returns the name of an item
 char *item_name(struct Item *item)
 {
-  //Check if the item is in the list
-  //If it isn't return the null string
-  if (item->name == NULL)
-  {
-    return "";
-  }
   return item->name;
 }
 
 //Returns the description of an item
 char *item_description(struct Item *item)
 {
-  //Check if the item has a given description
-  //If it does'n return the null string
-  if (item->desc == NULL)
-  {
-    return "";
-  }
-
   return item->desc;
 }
 
