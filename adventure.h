@@ -11,7 +11,7 @@
 #define LEVEL_SIZE 16
 
 struct Room **build_level();
-void free_level(struct Room **level, int room_size);
+void level_free(struct Room **level, int room_size);
 
 // Starts the game
 void play(void);

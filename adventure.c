@@ -138,7 +138,7 @@ struct Room **build_level()
 /*
  * Frees the memory of the entire level and its items
  */
-void free_level(struct Room **level, int room_size)
+void level_free(struct Room **level, int room_size)
 {
   for (int i = 0; i < room_size; ++i)
   {
@@ -170,13 +170,13 @@ void play(void)
   struct Action *action = get_action();
 
   // While the player doesn't quit
-  while (action_type(action) != QUIT)
+  while (get_action_type(action) != QUIT)
   {
     // Get the current room of the player
     struct Room *currentRoom = get_avatar_current_room(myAvatar);
 
     // Get the action of the player and follow the corresponding instructions
-    switch (action_type(action))
+    switch (get_action_type(action))
     {
     // If the action is "go"
     case GO:
@@ -211,8 +211,8 @@ void play(void)
   }
 
   // The game is complete, free the level and avatar memory
-  free_level(level, LEVEL_SIZE);
-  free_avatar(avatar);
+  level_free(level, LEVEL_SIZE);
+  avatar_free(myAvatar);
 }
 
 /*
@@ -224,7 +224,7 @@ void look(struct Avatar *avatar)
 {
   struct Room *currentRoom = get_avatar_current_room(avatar);
 
-  //Print the room description, the items that are on the floor, and the items in the player's inventory
+  // Print the room description, the items that are on the floor, and the items in the player's inventory
   printf("\n%s\n", get_room_description(currentRoom));
   printf("\nThe room contains:\n");
   item_print((get_room_items(currentRoom))->next);
@@ -289,7 +289,7 @@ void drop(struct Avatar *avatar, char *itemName)
 }
 
 /*
- * Handles the take use
+ * Handles the take action
  * 
  * Checks if the item of the given name (itemName) is in the avatars inventory and is a valid key for the room.
  * If it is, it unlocks the door and deletes the item.
@@ -327,92 +327,101 @@ void use(struct Avatar *avatar, char *itemName)
   }
 }
 
-// Traverse the through the map
+/*
+ * Handles the traverse
+ * 
+ * Checks if the players entered direction (arg) is a valid direction.
+ *  If it is a valid direction and the room is unlocked and move the avatar
+ */
 void traverse(struct Avatar *myAvatar, char *arg)
 {
-  //Get the current room that the player is in
+  // Get the current room that the player is in
   struct Room *currentRoom = get_avatar_current_room(myAvatar);
 
-  //Set the next room to null
+  // Set the next room to null
   struct Room *nextRoom = NULL;
 
-  //Declare the direction
+  // Declare the direction
   enum dir direction;
 
-  //If the direction is "north"
+  // If the direction is "north"
   if (strcmp("north", arg) == 0)
   {
-    //The next room is the room that is directly north
+    // The next room is the room that is directly north
     nextRoom = get_room_exit(currentRoom, NORTH);
-    //Set the direction
+    // Set the direction
     direction = NORTH;
   }
-  //If the direction is "south"
+  // If the direction is "south"
   else if (strcmp("south", arg) == 0)
   {
-    //The next room is the room that is directly south
+    // The next room is the room that is directly south
     nextRoom = get_room_exit(currentRoom, SOUTH);
-    //Set the direction
+    // Set the direction
     direction = SOUTH;
   }
-  //If the direction is "east"
+  // If the direction is "east"
   else if (strcmp("east", arg) == 0)
   {
-    //The next room is the room that is directly east
+    // The next room is the room that is directly east
     nextRoom = get_room_exit(currentRoom, EAST);
-    //Set the direction
+    // Set the direction
     direction = EAST;
   }
-  //If the direction is "west"
+  // If the direction is "west"
   else if (strcmp("west", arg) == 0)
   {
-    //The next room is the room that is directly west
+    // The next room is the room that is directly west
     nextRoom = get_room_exit(currentRoom, WEST);
-    //Set the direction
+    // Set the direction
     direction = WEST;
   }
-  //If the direction is "up"
+  // If the direction is "up"
   else if (strcmp("up", arg) == 0)
   {
-    //The next room is the room that is directly up
+    // The next room is the room that is directly up
     nextRoom = get_room_exit(currentRoom, UP);
-    //Set the direction
+    // Set the direction
     direction = UP;
   }
-  //If the direction is "down"
+  // If the direction is "down"
   else if (strcmp("down", arg) == 0)
   {
-    //The next room is the room that is directly down
+    // The next room is the room that is directly down
     nextRoom = get_room_exit(currentRoom, DOWN);
-    //Set the direction
+    // Set the direction
     direction = DOWN;
   }
 
-  //If the next room has not been set
+  // If the next room has not been set
   if (nextRoom == NULL)
   {
-    //Notify the player that there is no room in that direction
+    // Notify the player that there is no room in that direction
     printf("\nNo room in that direction.\n");
   }
-  //Else if the door to the next room is locked
+  // Else if the door to the next room is locked
   else if (room_is_door_locked(currentRoom, direction))
   {
-    //Notify the player that the room is locked
+    // Notify the player that the room is locked
     printf("\nThat door is locked.\n");
   }
-  //Else if the player is allowed to go in that direction
+  // Else if the player is allowed to go in that direction
   else
   {
-    //Set the players next room and notify them that the they reached the next room with the room description
+    // Set the players next room and notify them that the they reached the next room with the room description
     myAvatar->currentRoom = nextRoom;
     printf("\nYou walk in to the next room. \n%s\n", get_room_description(nextRoom));
   }
 }
 
-//Print the help menu
+/*
+ * Handles the help command
+ * 
+ * Prints valid commands and a description of them
+ */
 void print_help()
 {
-  //Prints the commands that the player can use throughout the game
+  // Prints the commands that the player can use throughout the game
   printf("\nHelp\n");
   printf("quit: Exits the game.\n");
   printf("go: Traverses your avatar to other rooms. Usage go {north, south, east, west, up, down}\n");

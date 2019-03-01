@@ -1,6 +1,6 @@
 #include "input.h"
 
-//Returns a pointer to an Action struct
+// Returns a pointer to an Action struct
 struct Action *get_action()
 {
 
@@ -17,10 +17,14 @@ struct Action *get_action()
 
   // Seperate user input by ' ' as a delimeter
   char delim[] = " ";
+
+  // The first argument (what action it is)
   char *actionstr = strtok(buffer, delim);
+
+  // The second argument (the argument of the action)
   char *arg = strtok(NULL, delim);
 
-  //Allocate memory for an Action struct
+  // Allocate memory for an Action struct
   struct Action *action = (struct Action *)malloc(sizeof(struct Action));
 
   // Parse the first argument of user input and set the action type
@@ -57,7 +61,7 @@ struct Action *get_action()
     action->actionType = ERR;
   }
 
-  //Allocate space and copy the second user argument
+  // Allocate space and copy the second user argument
   if (arg != NULL)
   {
     action->arg = strdup(arg);
@@ -71,10 +75,10 @@ struct Action *get_action()
   return action;
 }
 
-//Frees the action
+// Frees an actions memorys
 void free_action(struct Action *action)
 {
-  //If the second user argument is not free then free it
+  // If the second user argument is not free then free it
   if (action->arg != NULL)
   {
     free(action->arg);
@@ -83,13 +87,13 @@ void free_action(struct Action *action)
   free(action);
 }
 
-//Returns the action type
+// Returns the action type of an action
 enum ActionType get_action_type(struct Action *action)
 {
   return action->actionType;
 }
 
-//Returns a pointer to player's second argument
+// Returns a pointer to player's second argument
 char *get_action_arg(struct Action *action)
 {
   return action->arg;

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//Enumerate the direction
+// Enum of every possible direction
 enum dir
 {
   NORTH = 0,
@@ -16,7 +16,6 @@ enum dir
   DOWN
 };
 
-//Room struct
 struct Room
 {
   char *description;
@@ -25,7 +24,6 @@ struct Room
   char *locks[6];
 };
 
-//Prototypes
 struct Room *room(char *description, struct Item *items);
 void room_free(struct Room *room);
 

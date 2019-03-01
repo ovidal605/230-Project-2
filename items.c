@@ -1,26 +1,27 @@
 #include "items.h"
 
-//Returns an Item struct
+// Returns an initialized Item struct
 struct Item *item(char *name, char *desc, struct Item *next)
 {
-  //copy name and description
+  // Copy name and description
   char *nameCopy = malloc(strlen(name));
   strcpy(nameCopy, name);
 
   char *discCopy = malloc(strlen(desc));
   strcpy(discCopy, desc);
 
-  //Create an Item struct and allocate memory for it
+  // Create an Item struct and allocate memory for it
   struct Item *newItem;
   newItem = (struct Item *)malloc(sizeof(struct Item));
 
-  //assign the name, description, next to the item struct variables
+  // Assign the name, description, next to the item struct variables
   newItem->name = nameCopy;
   newItem->desc = discCopy;
   newItem->next = next;
   return newItem;
 }
 
+// Frees the memory of an item including its name and description
 void item_free(struct Item *item)
 {
   free(item_name(item));
@@ -28,36 +29,42 @@ void item_free(struct Item *item)
   free(item);
 }
 
+// Recursivly frees an item and all of its children
 void item_free_inventory(struct Item *itemHead)
 {
+  // While the item isnt null
   if (itemHead != NULL)
   {
+    // Get its child
     struct Item *next = item_next(itemHead);
+
+    // Free its childs memory
     item_free_inventory(next);
 
+    // Free its memory
     item_free(itemHead);
   }
 }
 
-//Returns the name of an item
+// Returns the name of an item
 char *item_name(struct Item *item)
 {
   return item->name;
 }
 
-//Returns the description of an item
+// Returns the description of an item
 char *item_description(struct Item *item)
 {
   return item->desc;
 }
 
-//Returns the next item in the list
+// Returns the next item in the list
 struct Item *item_next(struct Item *item)
 {
   return item->next;
 }
 
-//Prints the item list
+// Prints an item list
 void item_print(struct Item *head)
 {
   //Do not print the head node
@@ -94,10 +101,10 @@ struct Item *item_take(struct Item *item, char *itemName)
   return NULL;
 }
 
-//Adds an item to the player's inventory
+// Adds an item to the player's inventory
 void item_add(struct Item *inventory, struct Item *item)
 {
-  //Creates an temp item and connects it to the last item in the player's inventory
+  // Creates an temp item and connects it to the last item in the player's inventory
   struct Item *temp = inventory->next;
   inventory->next = item;
   item->next = temp;

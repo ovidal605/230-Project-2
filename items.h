@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdio.h>
 
-//Item struct
 struct Item
 {
   char *name;
@@ -13,7 +12,6 @@ struct Item
   struct Item *next;
 };
 
-//Prototypes
 struct Item *item(char *name, char *desc, struct Item *next);
 
 void item_free(struct Item *item);
