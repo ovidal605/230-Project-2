@@ -3,7 +3,7 @@ Zachary Polwrek, Oscar Vidal Rubio
     For this project we made a prison escape game. A player starts in an abandoned prison and is locked inside. The player 
 must find keys and manuever through the prison in order to escape. 
 
-Video Link: 
+Video Link: https://youtu.be/uufhvATD8Z0
 
 *** Game Requirements ***
 Your game must have at least 8 rooms.
